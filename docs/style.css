@@ -26,6 +26,7 @@ body {
   max-width: 1000px;
   padding: 2em;
   margin: auto;
+  background-color: #F5F5F7;
 }
 
 h1 {
@@ -45,6 +46,9 @@ h2 {
 .header img {
   width: 50%;
   object-fit: cover;
+  border-radius: 7px
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
 }
 
 .grid {
@@ -60,14 +64,42 @@ h2 {
 }
 
 .assignment a:hover {
-  color: #f06;
+  color: #5746E1;
 }
 
 .assignment img {
   aspect-ratio: 1;
   object-fit: cover;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+  display: inline-block; 
+  transition: transform 0.2s ease-in-out; 
+
 }
 
 .assignment p {
   margin-top: 0.5em;
+}
+
+
+
+.assignment img:hover {
+    animation: animate 1.5s ease-in-out;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 1;
+        transform: translateY(0px); /* Start above the original position */
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-8px);
+        
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px); /* Move below the original position */
+    }
 }
