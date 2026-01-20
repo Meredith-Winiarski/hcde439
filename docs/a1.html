@@ -8,11 +8,255 @@
 
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
+
   <body>
-    <h1>Example Student's Assignment 1!</h1>
-    <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 1!</p>
+    <h1>A1: Blink!</h1>
+    <p> 
+      For this assignment, we were tasked with creating a circuit containing 3+ 
+        LEDs where each LED blinks independently. 
+      
+         I chose to create a circuit with a blue, green, and white LED that blink to spell out 
+         "Go Hawks!" in Morse code. 
+
+    </p>
+    <div class="image-text"> 
+      <img src="A1_Circuit_Image.jpg" />
+      <p> 
+        This is an image of my final circuit built on a breadboard and connected to the Arduino. 
+        The blue, green, and white LEDs are in parallel branches, and each have their own resistor,
+        They are connected to digital pins 7, 8, and 9.
+      </p>
+
     </div>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+
+    <h2> Circuit Diagram </h2>
+    <div class="image-text">
+      <img src="A1_Schematic.jpg" />
+
+      <p> Here is the schematic diagram for my circuit. Since I was using three different colored LEDs, I 
+        created a parallel circuit with three branches. Each branch contains one LED and one resistor. 
+        By using a parallel circuit, I ensured voltage could split and was constant across each LED. 
+        This also allowed me to control each LED independently.
+     
+      </p>
+    </div>
+
+<hr style="border: none; height: 20px; background: none;">
+
+    <h2> Choosing Resistors </h2>
+    <div class="image-text-wide">
+      <img src="A1_Resistor_Math.jpg" />
+
+      <p> 
+        To choose the right resistors for each branch, I started by measuring the voltage drop through each LED.
+        Each LED had a voltage drop between 2.8 and 3.0 volts, so I rounded up to 3.0 volts for each LED.
+        I knew the arduino provided 5 volts of power and I wanted a current of 20 mA.
+        Then I used Ohm's Law (V = IR) to calculate the resistance needed. The result was a 100 ohm resistor for each branch.
+        However, since there is no 100 ohm resirotr in the circuit kit, I rounded up, using a 220 ohm resistor.
+      </p>
+        
+
+
+<hr style="border: none; height: 20px; background: none;">
+ 
+
+  <h2> Final Circuit GIF </h2>
+    <div class="image-text-gif">
+          <img src="A1_Blink.gif" />
+
+          <p>Here is a GIF of the final circuit. Every blink of any color LED represents
+           a dot or dash in Morse code. 
+          </p>           
+
+    </div>
+
+<hr style="border: none; height: 20px; background: none;">
+
+
+
+
+
+<h2> Additional Questions </h2>
+
+<h3> 1.  Voltage vs. Time Graph </h3>
+        <div class="image-text-wide">
+          <img src="Voltage_v_time.jpg" />
+          <p> This graph shows voltage vs. time for each of the LEDs in the circuit.
+            As shown, each LED turns on and off at a different time. The 0.25 seconds where an LED is on
+            represents a dot in Morse code, while the 0.75 second represents a dash. 
+            The gaps where none of the lights are on represent spaces between letters and words. <br>
+          </p>
+          
+        </div>
+
+        <h3> 2. Maximum number of LEDs</h3>
+        <p>
+          You should be able to independently blink 13 LEDs using an Arduino because the Arduino has 13
+          digital pins. To blink an LED indepdently it needs to be connected to its own digital pin, thus 
+          making the total 13 LEDs. Assumung we are drawing the ideal amount of current, 20mA per pin,
+          we will be drawing 260mA if all 13 LEDs are on at the same time. 
+        </p>
+
+        <h3> 3. Speed of LEDs </h3>
+
+        <p>
+          At delay(10) or 0.010 seconds, you can no longer tell the LED is blinking. At around 0.02 seconds, 
+          the LED begins to look like it was vibrating or buzzing rather than blinking, but at 0.01 seconds, 
+          it loses this appearance and appears to be constantly on. 
+        </p>
+
+        <h3> 4. AI Use </h3>  
+        <p>
+           I did not use AI when completing this assignment.
+
+        </p>
+
+
+
+  <h2>   Arduino Code </h2>
+     <h2> Code Snipppet </h2>
+
+<div class="code">
+        <p>
+           //define variables for the entire file  <br> 
+            int blue_LED = 7;  //define blue LED and set to pin #7 <br>
+            int green_LED = 8; //define green LED and set to pin #8 <br>
+            int white_LED = 9; //define white LED and set to pin #9 <br> 
+            <br>
+            void setup() { <br>
+              pinMode(blue_LED, OUTPUT);  //initialize blue LED as an output <br>
+              pinMode(green_LED, OUTPUT); //initialize green LED as an output <br>
+              pinMode(white_LED, OUTPUT); //initialize white LED as an output <br>
+            } <br>
+            <br>
+
+            void loop() { <br>
+              // GO <br>
+              <br>
+              // G <br>
+              digitalWrite(blue_LED, HIGH);   // turn ON the blue LED <br>
+              delay(750);                     // wait for a dash <br> 
+              digitalWrite(blue_LED , LOW);   // turn OFF the blue LED <br>
+              <br>
+              digitalWrite(green_LED, HIGH);  // turn ON the green LED <br>
+              delay(750);                     // wait for a dash <br>
+              digitalWrite(green_LED, LOW);   // turn OFF the green LED <br>
+              <br>
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(white_LED, LOW);    // turn OFF the white LED <br>
+              <br>
+              delay(750); //gap between letters <br>
+              <br>
+              // O <br>
+              digitalWrite(blue_LED, HIGH);   // turn ON the blue LED <br>
+              delay(750);                     // wait for a dash  <br>
+              digitalWrite(blue_LED , LOW);   // turn OFF the blue LED <br>
+              <br>
+              digitalWrite(green_LED, HIGH);  // turn ON the green LED <br>
+              delay(750);                     // wait for a dash <br>
+              digitalWrite(green_LED, LOW);   // turn OFF the green LED <br>
+
+              digitalWrite(white_LED, HIGH);  // turn ON the white LED <br>
+              delay(750);                     // wait for a dash <br>
+              digitalWrite(white_LED, LOW);   // turn OFF the white LED <br>
+                <br>
+              delay(1750);  //break between words <br>
+              <br>
+            // HAWKS <br>
+            <br>
+            // H <br>
+              <br>
+              digitalWrite(blue_LED, HIGH);    // turn ON the blue LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(blue_LED , LOW);    // turn OFF the blue LED <br>
+              <br>
+              digitalWrite(green_LED, HIGH);   // turn ON the green LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(green_LED , LOW);   // turn OFF the green LED <br>
+              
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(white_LED , LOW);   // turn OFF the white LED <br>
+
+              digitalWrite(blue_LED, HIGH);    // turn ON the blue LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(blue_LED , LOW);    // turn OFF the blue LED <br>
+              <br>
+              delay(750); //gap between letters <br>
+              <br>
+            // A <br>
+              digitalWrite(green_LED, HIGH);   // turn ON the green LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(green_LED , LOW);   // turn OFF the green LED <br>
+                <br>
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(750);                      // wait for a dash <br>
+              digitalWrite(white_LED , LOW);   // turn OFF the white LED <br>
+              <br>
+              delay(750); //gap between letters <br>
+
+              <br>
+            // W <br>
+              digitalWrite(blue_LED, HIGH);    // turn ON the blue LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(blue_LED , LOW);    // turn OFF the blue LED <br>
+
+              digitalWrite(green_LED, HIGH);   // turn ON the green LED <br>
+              delay(750);                      // wait for a dash <br>
+              digitalWrite(green_LED , LOW);   // turn OFF the green LED <br>
+              <br>
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(750);                      // wait for a dash <br>
+              digitalWrite(white_LED , LOW);   // turn OFF the white LED <br>
+              <br>
+              delay(750); //gap between letters <br>
+              <br>
+
+            // K  <br>
+
+              digitalWrite(blue_LED, HIGH);    // turn ON the blue LED <br>
+              delay(750);                      // wait for a dash <br>
+              digitalWrite(blue_LED , LOW);    // turn OFF the blue LED <br>
+              <br>
+              digitalWrite(green_LED, HIGH);   // turn ON the green LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(green_LED , LOW);   // turn OFF the green LED <br>
+              <br>
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(750);                      // wait for a dash <br>
+              digitalWrite(white_LED , LOW);   // turn OFF the white LED <br>
+              <br>
+              delay(750); //gap between letters <br>
+              <br>
+            //S <br>
+
+              digitalWrite(blue_LED, HIGH);    // turn ON the blue LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(blue_LED , LOW);    // turn OFF the blue LED <br>
+              <br>
+              digitalWrite(green_LED, HIGH);   // turn ON the green LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(green_LED , LOW);   // turn OFF the green LED <br>
+              <br>
+              digitalWrite(white_LED, HIGH);   // turn ON the white LED <br>
+              delay(250);                      // wait for a dot <br>
+              digitalWrite(white_LED , LOW);   // turn OFF the white LED <br>
+              <br>
+              delay(1750); //gap between words <br>
+              
+            } <br>
+
+                    
+        </p>
+
+</div>  
+
+
+
+
   </body>
 </html>
