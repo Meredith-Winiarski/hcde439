@@ -2,7 +2,7 @@
 
 Welcome to the HCDE 439 example Github repository!
 
-Instructor: Paula Te
+Instructor: Meredith Winiarski
 
 ## What is Git? What is Github?
 
@@ -24,7 +24,7 @@ Instructor: Paula Te
 
 ## Getting Started
 
-See the [A0 assignment instructions](assignments/a0/a0.md) for step-by-step guidance on:
+See the [A0 assignment instructions](a0/a0.md) for step-by-step guidance on:
 
 - Installing the necessary tools (Git, VS Code, Arduino IDE)
 - Creating your GitHub account and repository
