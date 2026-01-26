@@ -38,7 +38,7 @@
 
     <h2> Circuit Diagram </h2>
     <div class="image-text">
-      <img src="A2_Circuit_Diagram.jpg" />
+      <img src="A2_Schematic.jpg" />
 
       <p> Here is the schematic diagram for my circuit. Since I was using 5 different colored LEDs, I 
         created a parallel circuit with 5 branches. Each branch contains one LED and one resistor. 
@@ -56,14 +56,25 @@
 
     <h2> Choosing Resistors </h2>
     <div class="image-text-wide">
-      <img src="Empty Image.png" />
+      <img src="A2_R_Calculations.jpg" />
 
       <p> 
+      
         To choose the right resistors for each branch, I started by measuring the voltage drop through each LED.
-        Each LED had a voltage drop between 2.8 and 3.0 volts, so I rounded up to 3.0 volts for each LED.
+        Each LED had a voltage drop between 1.8 and 3.0 volts, so I rounded up to either 2.0 or 3.0 volts for each LED.
         I knew the arduino provided 5 volts of power and I wanted a current of 20 mA.
-        Then I used Ohm's Law (V = IR) to calculate the resistance needed. The result was a 100 ohm resistor for each branch.
-        However, since there is no 100 ohm resirotr in the circuit kit, I rounded up, using a 220 ohm resistor.
+        Then I used Ohm's Law (V = IR) to calculate the resistance needed. The result was a 100 or 150 ohm resistor for each branch.
+        To ensure that my the current would be 20mA or lower, I rounded up, using a 220 ohm resistorvfor each LED branch.
+      <br>
+      <br>
+        I used  a 10k ohm resistor to act as a pull-down resistor on the button branch, 
+        as recommended in class. The purpose of a pull-down resistor is to ensure that the 
+        input pin reads LOW when the button is not pressed. When the button is not pressed, Pin 2 might pick-up additional noise from the environemnt causing it 
+        to read a non-zero voltage. Adding a resistor that connects Pin 2 to Ground, ensures the pin will read zero. 
+        I used a 10k ohm  because it limits the amount of current flowing through the circuit while still 
+        effectively pulling the pin to ground. 
+      
+      
       </p>
         
 
@@ -91,30 +102,44 @@
 
 
 <h2> Additional Questions </h2>
+<div class="image-text-wide">
 
-<h3> 1.  Draw a chart where the X axis is time and the Y axis is voltage. 
+  <h3> 1.  Draw a chart where the X axis is time and the Y axis is voltage. 
   Draw 3 lines representing the voltage across an LED with analogWrite(led, 64), 
   analogWrite(led, 128), and analogWrite(led, 255). </h3>
-        <div class="image-text-wide">
-          
-          <p>  <br>
+        
+  <img src="A2_ Voltage_v_Time.jpg" />
+
+      
+        <p> This chart represents the duty cycle of the LED at different analogWrite values. 
+            This chart show the voltage overtime for a blue LED.
           </p>
           
-        </div>
+</div>
 
-        <h3> 2.   If all your LEDs were on simultaneously, what would the total current draw be? 
+<div class="image-text-wide"></div>
+    <h3> 2.   If all your LEDs were on simultaneously, what would the total current draw be? 
           Is this above or below the total Arduino current draw limits?
            If all your LEDs were on, how long would your circuit run if powered by a 1200 mAh battery
-          </h3>
+</h3>
+  
+          <img src="A2_AQ_Math.jpg" />
+
         <p>
+
+          The total current draw would be 116 milliAmps. This is below the total Arduino current draw 
+          limit of 150 milliAmps total. 
+          <br>
+          If powered by a 1200 mAh battery, the circuit would run for approximately 10.34 hours.
           
         </p>
 
         <h3> 3. Measure and record the actual voltage across one of your LEDs when it's on.
-          How does this compare to the theoretical forward voltage for your LED color </h3>
+          How does this compare to the theoretical forward voltage for your LED color? </h3>
 
         <p>
-          
+          I measured the voltage across the red LED when it was on and it was 1.85 volts. 
+          This is close to the theoretical forward voltage of 2.0 volts for a red LED.
         </p>
 
         <h3> 4. AI Use </h3>  
@@ -124,6 +149,78 @@
         </p>
 
 <hr style="border: none; height: 20px; background: none;">    
+ <h2>   Arduino Code </h2>
+
+
+<div class="code">
+  
+        <p>
+          
+
+const int buttonPin = 2;  // the number of the pushbutton pin <br>
+<br>
+long randNumber; //initalize ability to run random number generator <br>
+<br>
+int white = 3; // intialize white LED <br>
+int green = 5;  // intialize green LED<br>
+int yellow = 6; // intialize yellow LED<br>
+int blue = 9; // intialize blue LED<br>
+int red = 10; // intialize red LED<br>
+<br>
+int pwmPins[] = {3, 5, 6, 9, 10}; // intialized an array of all the PWM pins used by an LED<br>
+<br>
+int randomNum = 0; //intialized the random number as 0<br>
+<br>
+int brightness = 250; //intialized the birghtness as 250<br>
+int fadeAmount = 5;  // intialized how many points to fade the LED by to 5<br> 
+<br>
+int buttonState = 0;  // initalized the variable for reading the pushbutton status <br>
+int lastButtonState = 0; // initalized thevariable for the previous pushbutton status <br>
+<br>
+<br>
+
+void setup() { <br>
+ <br>
+  pinMode(white, OUTPUT); //set white LED as an output<br>
+  pinMode(green, OUTPUT); //set green LED as an outputv]<br>
+  pinMode(yellow, OUTPUT); //set yellow LED as an output<br>
+  pinMode(blue, OUTPUT); //set blue LED as an output<br>
+  pinMode(red, OUTPUT); //set red LED as an output<br>
+<br>
+  Serial.begin(9600); //intialized serial to debug <br>
+  randomSeed(analogRead(0));  // intializing ability to pick random numbers <br>
+}<br>
+
+void loop() { <br>
+  
+  buttonState = digitalRead(buttonPin);   // read the state of the pushbutton value: <br>
+
+  Serial.println(brightness);  //print the brightness value <br>
+<br>
+    if (buttonState == HIGH && lastButtonState== LOW) {  //check if the button has been pressed and was previously not pressed <br>
+        randNumber = pwmPins[random(0,5)];  //generate a random number/pin from the pwmPins array <br>
+        brightness = 250; //set the brightness to 250 <br>
+<br>
+        while (brightness > 0){ //  check if the brightness is greater than zero <br>
+          //Serial.println(brightness);  //print the brightness value <br>
+<br>
+          analogWrite(randNumber, brightness); //make that random pin light up at full brightness 
+          <br>
+          brightness = brightness - fadeAmount; //decrease the brightness by the fade amount <br>
+          delay(50); // wait 50 milliseconds as LED dims <br>
+<br>
+        } <br>
+        analogWrite(randNumber, LOW); // guarantee the random LED turns off <br>
+    } <br>
+  <br>
+    Serial.println(randNumber); //print the random number <br>
+<br>
+
+    lastButtonState = buttonState; //update the state of lastbuttonstate to be the current buttonState <br>
+} <br>
+
+
+        </p>
 
 
   </body>
