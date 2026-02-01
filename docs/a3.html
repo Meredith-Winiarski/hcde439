@@ -94,10 +94,26 @@
   <h3> 1: In your voltage divider, can the variable resistor be either R1 or R2 or does it need 
     to be one or the other? Justify your answer with example calculations. </h3>
         
-  <img src="Empty Image.png" />
+  <img src="A3_AQ_1.jpg" />
 
       
         <p> 
+          In my voltage divider, the variable resitor order matters and R1 needs to be the variable resistor (the photocell resistor in my case).
+          This is because in my circuit, the input pin is after R1. 
+          It is important for the variable resistor to be R1 because as the resistance of the photocell resistor changes,
+          the voltage at the input pin will change accordingly. 
+
+          Using the votlage divider formula Vout = Vin * (R2 / (R1 + R2)), where Vin is 5V from the Arduino we can see that if the resistors are
+          different values, the order matters. 
+
+          <br>
+          <br>
+          In the image here, the steady resistor is 10K Ohm and for this example the photocell resistor R1 is set to 20K Ohms. 
+          When the photocell resistor is 20K Ohms, the voltage at the input pin is 1.67V. When the photocell resistor is second
+          R2, the voltage at the input pin is 3.33V. This shows that the voltage at the input pin changes based on which resistor is variable.
+
+          
+
           </p>
           
 </div>
@@ -126,14 +142,20 @@
     Imagine you had 10-bit PWM and a 16-bit analog-to-digital converter instead. 
     How would this change your map() code? Explain your answer.
 
-
-
  </h3>
         
-  <img src="Empty Image.png" />
+
 
       
         <p> 
+          If I were using a 16-bit analog-to-digital converter instead of a 10-bit, and 10-bit PWM instead of 8-bit, the "standard"
+          map function would be map(value, 0, 65535, 0, 1024). This is because a 16-bit ADC can represent values from 0 to 65535 (2^16) and
+          a 10-bit PWM can represent values from 0 to 1023 (2^10 - 1). 
+
+          In my specific code, the new map function would be map(sensorValue, 12800, 40960, 1024, 0). 
+          This is to maintain the inverse relationship between the sensor value and LED brightness. Additionally, in my current code the sensorValue
+          has been constrained between 200 and 650. Therefore I would use the equivalent values scaled to 16-bits, which are
+           12800 = (200 * 65535 / 1023) and 40960  = (650 * 65535 / 1023).
           </p>
           
 </div>
