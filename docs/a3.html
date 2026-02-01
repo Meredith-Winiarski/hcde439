@@ -126,10 +126,15 @@
 
  </h3>
         
-  <img src="Empty Image.png" />
+  <img src="A3_AQ_2.jpg" />
 
       
         <p> 
+
+          This graph represents the voltage at the input pin (V-measure) over time for the GIF of my final
+          circuit. At the low points in the graph, the voltage is around 0.2 V and at the high points it is around 3.2 V. 
+          This is because I contained the sensor values between 200 and 650 and inversely mapped those values to 
+          brightness values. This means that when the sensor value is at its lowest (200), the light is at its brightest.
           </p>
           
 </div>
@@ -144,9 +149,6 @@
 
  </h3>
         
-
-
-      
         <p> 
           If I were using a 16-bit analog-to-digital converter instead of a 10-bit, and 10-bit PWM instead of 8-bit, the "standard"
           map function would be map(value, 0, 65535, 0, 1024). This is because a 16-bit ADC can represent values from 0 to 65535 (2^16) and
