@@ -9,10 +9,301 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 2!</h1>
+    <h1>A4: Libraries</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 2!</p>
+      <p>For this assignment we were tasked with using libraries, sensors, and actuators ina circuit. 
+        I used one library for the IR Sensor and two sensors (an IR sensor and the joystick). 
+        When the power button is pressed on the IR sensor remote, the system turns of, which is 
+        indicated by a white LED turning on, and then off when the power button is pressed again. 
+        When the system is on you can use the joystick to turn on corresponding LEDs (i.e. 
+        push the joystick up to turn on the red led). 
+      </p>
     </div>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+
+    <div class="image-text"> 
+      <img src="A4_Circuit.jpg" />
+      <p> 
+        This is an image of my final circuit built on a breadboard and connected to the Arduino. 
+        All  LEDs are in parallel branches, and each have their own resistor,
+        The white LED is conneced to pin 3. The red, blue, green, and yellow LEDs are connected to
+         the digital PWM pins 5, 6, 9, 10. The x and y values of the joystick are connected to A0 
+         and A1, and the IR sensor is connected to pin 7.
+      </p>
+
+    </div>
+
+     <hr style="border: none; height: 20px; background: none;">
+
+
+
+  <h2> Circuit Diagram </h2>
+  <div class="image-text">
+    <img src="A4_Schematic.jpg" />
+      <p> Here is the schematic diagram for my circuit. 
+        Each branch with an LED contains one LED and one resistor. 
+        I used a parallel curcuit for the LEDs to ensure voltage was constant across each LED.
+        The IR Sensor resistor is also in its own branch.
+      </p>
+  </div>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+
+     <h2> Choosing Resistors </h2>
+    <div class="image-text">
+      <img src="A4_Calculations.jpg" />
+
+      <p> 
+      
+        To choose the right resistors for each branch, I started by measuring the voltage drop through 
+        each LED. The white and blue LEDs have a voltage drop of apprximately 3.0 volts. Red, green, 
+        and yellow LEDs have a drop of approximately 2.0 volts. The arduino provided 5 volts of power 
+        and I wanted a current of 20 mA. Then I used Ohm's Law (V = IR) to calculate the resistance 
+        needed. The result was a 100 or 150 ohm resistor for each branch. To ensure that my the 
+        current would be 20mA or lower, I rounded up, using a 220 ohm resistor for each LED. 
+      </div>
+
+
+
+       <hr style="border: none; height: 20px; background: none;">
+ 
+
+  <h2> Final Circuit GIF </h2>
+    <div class="image-text">
+          
+
+          <p>Here is a video of the final circuit: <a href="https://youtu.be/cYoiWovj0j4"> Circuit Functionality</a>  <br>
+            <br> Due to the size of the video, I couldn't create a high quality GIF that
+            VS code would accept that also showed all of the functionality. <br>
+            <br>
+            
+            The white lights increase in brightness as the photocell
+            sensor value decreases, which happens when it gets darker.
+            If the sensor value goes below a certain threshold, the red LED will turn on. This is simulated
+            in the GIF throught the use of a brown cloth covering the photocell resistor to decrease the light reaching it.
+          </p>           
+
+    </div>
+
+<hr style="border: none; height: 20px; background: none;">
+  
+<h2> Additional Questions </h2>
+<div class="image-text-wide">
+
+  <h3> Say you are using a servo motor you attach to pin 9. In your loop() you have the following code: <br>
+    <div class="code">
+void loop() { <br>
+for (pos = 0; pos <= 180; pos += 1) { <br>
+  myservo.write(pos);  <br>
+  delay(100); <br> 
+  } <br>
+} <br>
+</div>
+Draw a graph with the x-axis as time and the y-axis as voltage at pin 9 with respect to ground. </h3>
+        
+  <img src="A4_AQ_1.jpg" />
+
+      
+        <p> 
+          When using a servo motor, there is a pulse every 20 milliseconds, and the width of the
+          pulse determines the position of the servo. So, when the position (pos) is equal to 0, the
+          pulse with is 1 millisecond. Since the delay, is 100 milliseconds, we see 5 1ms pulses.
+          When the position is 180, the pulse width is 2 milliseconds, so we see 5 2ms pulses. 
+          Due to the length of the delay and the number of positions in the for loop, I did not draw
+          every pulse state in my graph, however it is important to note that the pulse width 
+          changes based on the position of the servo. So the postion values between 0 and 180 would
+          have propotional pulse widths between 1ms and 2 ms. 
+          </p>
+          
+</div>
+
+<div class="image-text-wide">
+
+  <h3> 2:  Your input device is slightly broken, leading it to give us an erroneous reading 1% of the
+     time. How can we address this? Answer in (pseudo)code.
+
+  </h3>
+        <p> 
+          If the sensor is experiencing this kind of error, we can use an if statment to remove outliers. 
+
+          For example, if most sensor values are around 500, but we see a value of 1000, we can remove this
+          value with code like this:
+
+          <div class="code">
+
+          if(sensorValue > 550) { <br>
+            sensorValue = previousSensorValue; <br>
+          } <br>
+
+          </div>
+          <br>
+          Here if a value is above 550, we can replace it with the previous sensor value, which is 
+          likely to be a more accurate reading.
+          </p>
+          
+</div>
+
+<div class="image-text-wide">
+
+  <h3>3: Your input device is slightly noisy, leading the measurement to randomly deviate from the 
+    true measurement up or down by 10%. How can we address this? Answer in (pseudo)code.
+
+ </h3>
+        
+        <p> 
+          If the sensor is noisy, we can average and reaverage the sensor values as they are read 
+          in to get a more accurate reading. If values are being stored in an array we might use 
+          code like this to replaces values and average stored values (assuming we have 
+          initalized all necessary values): <br>
+          <div class="code">
+          int numReadings = 50; <br>
+
+          int sensorValues[numReadings]; <br>
+          int total = 0; <br>
+          int readingIndex = 0;
+          <br>
+
+          void setup() { <br>
+            for(int i = 0; i < numReadings; i++) { <br
+            sensorValues[i] = 0; <br>
+          } <br>
+
+
+          void loop() { <br>
+            total = total - sensorValues[readingIndex]; <br>
+
+            sensorValues[readingIndex] = analogRead(sensorPin); <br>
+            total = total + sensorValues[readingIndex]; <br>
+            readingIndex += 1; <br>
+            <br>
+            if (readingIndex >= numReadings) { <br>
+              readingIndex = 0; <br>
+            } <br>
+
+          int average = total / numReadings; <br>
+          }
+          </div>
+
+          </p>
+          
+</div>
+
+<h3> 4. AI Use </h3>  
+        <p>
+           I did not use AI when completing this assignment.
+
+        </p>
+
+<hr style="border: none; height: 20px; background: none;">    
+ <h2> Arduino Code </h2>
+
+
+<div class="code">
+  
+        <p>
+          #include <IRremote.h> //include the IRremote library  <br>
+
+const int RECV_PIN = 7; //initiate the IR receiver pin as 7  <br>
+ <br>
+bool systemOn = false; //intiate system on value as false  <br>
+ <br>
+int x = A0; //initiate x input to pin A0 <br>
+int y = A1; //initiate y input to pin A0 <br>
+int xval = 0; //initiate x value to 0  <br>
+int yval = 0;  //initiate y value to  0  <br>
+ <br>
+int whiteLED = 3;  //initiate white LED to pin 3  <br>
+int red = 5;   //initiate red LED to pin 5  <br>
+int blue = 6;  //initiate blue LED to pin 6  <br>
+int green = 9;  //initiate green LED to pin 9  <br>
+int yellow = 10;  //initiate yellow LED to pin 10  <br>
+ <br>
+const int center = 506; //initiate the center joystick value as 506  <br>
+const int gap = 10; //Intiatve the joystick gap value as 10  <br>
+ <br>
+
+IRrecv irrecv(RECV_PIN); //initialize IR object for detecting IR signals  <br>
+decode_results results; // holds IR data  <br>
+ <br>
+void setup(){  <br>
+  Serial.begin(9600); //intiate serial  <br>
+  pinMode(whiteLED, OUTPUT); //set white led as an output  <br>
+  pinMode(red, OUTPUT); //set red led as an output  <br>
+  pinMode(blue, OUTPUT); //set blue led as an output  <br>
+  pinMode(green, OUTPUT); //set green led as an output  <br>
+  pinMode(yellow, OUTPUT); //set yellow led as an output  <br>
+  irrecv.enableIRIn(); //function detecting values  <br>
+  irrecv.blink13(true); //function for visually knowing when IR values when detected  <br>
+
+
+}  <br>
+
+void loop(){  <br>
+
+   <br>
+  if (irrecv.decode(&results)) { //checks if a signal has been received and decoded  <br>
+    Serial.println(results.value, HEX); //prints the decoded value   <br>
+
+    if (results.value == 0xFFA25D) {   // If the received value is the power button  <br>
+      systemOn = !systemOn; //change the value of system on to the opposite of the current value  <br>
+  <br>
+      if (systemOn) { //if the sustem is on  <br>
+        digitalWrite(whiteLED, HIGH); //turn the white LED on high  <br>
+        Serial.println("SYSTEM ON"); //print System On  <br>
+      } else {  //if the system is not on,  <br>
+        digitalWrite(whiteLED, LOW); //Turn the white LED off  <br>
+        Serial.println("SYSTEM OFF"); //print System Off  <br>
+  <br>
+        analogWrite(red, 0); //turn off the red LED  <br>
+        analogWrite(blue, 0);  //turn off the blue LED  <br>
+        analogWrite(green, 0); //turn off the green LED  <br>
+        analogWrite(yellow, 0); //turn off the yellow LED  <br>
+      }  <br>
+    }  <br>
+    irrecv.resume(); //continue receiving values  <br>
+  } <br>
+ <br>
+  if (systemOn){ //if the system is still on <br>
+    xval = analogRead(x); //read the x value of the joystick <br>
+    yval = analogRead(y); //read the y value of the joystick <br>
+    Serial.print("x = "); //print x=  <br>
+    Serial.print(xval); //print x value  <br>
+    Serial.print("y = "); //print y =  <br>
+    Serial.println(yval); //print y value  <br>
+    int rb = 0; // intitate red brightness to zero  <br>
+    int gb = 0; // intitate green brightness to zero  <br>
+    int bb = 0; // intitate blue brightness to zero  <br>
+    int yb = 0; // intitate yellow brightness to zero  <br>
+  <br>
+    // y axis (red and green)   <br>
+    if (yval > center + gap) { //if the y value is more than the center value minus the gap value <br>
+      gb = map(yval, center + gap, 1023, 0, 255); //map right y values green  brightness <br>
+    } else if (yval < center - gap) { //if the y value is less than the center value minus the gap value  <br>
+    rb = map(yval, 0, center - gap, 255, 0); //map right y values red brightness <br>
+     <br>
+    } <br>
+ <br>
+    // x axis (blue and yellow)   <br>
+    if (xval > center + gap) { //if the x value is more than the center value minus the gap value <br>
+      bb = map(xval, center + gap, 1023, 0, 255); //map right x values to blue brightness  <br>
+    } else if (xval < center - gap) { //if the x value is less than the center value minus the gap value  <br>
+      yb = map(xval, 0, center - gap, 255, 0); //map left x values to yellow brightness  <br>
+    } <br>
+ <br>
+    analogWrite(red, rb); //set red LED to red brightness  <br>
+    analogWrite(blue, bb); //set blue LED to blue brightness <br>
+    analogWrite(green, gb); //set green LED to green brightness <br>
+    analogWrite(yellow, yb); //set yellow LED to yellow brightness <br>
+    }  <br>
+        
+  }
+</p>
+</div>
+
+    
+
   </body>
 </html>
