@@ -14,5 +14,61 @@
       <img src="red-panda.jpg" />
       <p>Here is all the documentation for assignment 2!</p>
     </div>
+
+
+
+
+
+    <hr style="border: none; height: 20px; background: none;">    
+ <h2> Arduino Code </h2>
+
+
+<div class="code">
+
+#include <IRremote.h> //include the IRremote library<br>
+const int RECV_PIN = 7; //initiate the IR receiver pin as 7<br>
+
+<br>
+int whiteLED = 2;  //initiate white LED to pin 2 <br>
+int redLED = 3;   //initiate red LED to pin 3 <br>
+IRrecv irrecv(RECV_PIN); // initialize IR object for detecting IR signals <br>
+decode_results results; // holds IR data<br>
+
+bool systemOn = false; //intiate system on value as false<br>
+<br>
+
+void setup() {<br>
+  Serial.begin(9600); //intiate serial<br>
+  irrecv.enableIRIn(); //function detecting values<br>
+  irrecv.blink13(true); //function for visually knowing when IR values when detected<br>
+  pinMode(whiteLED, OUTPUT);   //  declare white led as an output<br>
+  pinMode(redLED, OUTPUT);     // declare red led as an output<br>
+<br>
+}<br>
+
+void loop() {<br>
+  // put your main code here, to run repeatedly: <br>
+  if(irrecv.decode(&results)){ //decode the received value and store it in results<br>
+  if (results.value == 0xFFA25D) {   // If the received value is the power button <br>
+      systemOn = !systemOn; //change the value of system on to the opposite of the current value <br>
+ <br>
+      if (systemOn) { //if the system is on <br>
+        digitalWrite(whiteLED, HIGH); //turn the white LED on high <br>
+        digitalWrite(redLED, LOW); //turn red LED on low <br>
+        Serial.println("SYSTEM ON"); //print System On<br>
+ <br>
+      } else {  //if the system is not on, <br>
+        digitalWrite(whiteLED, LOW); //Turn the white LED off <br>
+        digitalWrite(redLED, HIGH); //turn red LED on high <br>
+        Serial.println("SYSTEM OFF"); //print System Off <br>
+ <br>
+      }<br>
+    }<br>
+<br>
+    irrecv.resume(); //continue receiving values<br>
+  }<br>
+} <br>
+
+</div>
   </body>
 </html>
