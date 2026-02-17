@@ -9,17 +9,82 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 2!</h1>
+    <h1>A5: High(er) Voltage and Transistors</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 2!</p>
+      <p>For this assignment we were tasked with buidling a circuit containing a sensor, a transistor, and an 
+        external power source.</p>
     </div>
 
 
+<hr style="border: none; height: 20px; background: none;">
+
+
+    <div class="image-text"> 
+      <img src="A4_Circuit.jpg" />
+      <p> 
+        This is an image of my final circuit built on a breadboard, connected to the Arduino, and connected to 
+        an external power source. 
+        The red and white LEDs are in parallel branches, and each have their own resistor,
+        The white LED is conneced to pin 2. The red LED is connected to pin 3. The transistor is connnected to pin 9 
+        and the IR sensor is connected to pin 7.
+      </p>
+
+    </div>
+
+     <hr style="border: none; height: 20px; background: none;">
+
+
+<h2> Additional Questions </h2>
+<div class="image-text-wide">
+
+  <h3> 1: These are the datasheets for the n-mosfet transistor: DMT6009LCT, IRLZ44N, P30N06LE. Read the text on
+     your mosfet to see which one you have. For your mosfet, what is the absolute maximum amount of current between 
+     pins 2 and 3?</h3> <br>
+        
+    <p> 
+    Our transistor is the DMT6009LCT. Per the datasheet, the absolute maximum amount of current between 
+    pins 2 and 3 (Source and Drain) or the continuous drain current is 37.2 A.
+
+    </p>
+         
+          
+</div>
+
+<div class="image-text-wide">
+
+  <h3> 2: Draw a schematic for a circuit with using at least your arduino, a DC motor, a flyback diode, 
+    and capacitors between power and ground. Find parts with datasheets you could use for each of these 
+    schematic components.
 
 
 
-    <hr style="border: none; height: 20px; background: none;">    
+  </h3>
+        <p> 
+          
+          </p>
+          
+</div>
+
+<div class="image-text-wide">
+
+  <h3>3: Here is the datasheet for the L293D chip: https://www.ti.com/product/L293D. 
+    Draw a schematic using at least your arduino, this chip, and two motors. Write (pseudo) code that shows how 
+    you would move the motors both forward, both back, then one forward one back, and one back then forward.
+
+ </h3>
+        
+        <p> 
+          
+        </p>
+          
+</div>
+
+<h3> 4. AI Use </h3>  
+        <p>
+           I did not use AI when completing this assignment.
+
+        </p>
+<hr style="border: none; height: 20px; background: none;">    
  <h2> Arduino Code </h2>
 
 
