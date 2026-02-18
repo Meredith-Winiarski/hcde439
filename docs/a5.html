@@ -45,8 +45,10 @@
 <p> Here is the schematic diagram for my circuit.
 The IR receiver was its own branch connected to the Arduino.
 The 3 red LEDs were in series with a resistor, and that branch was connected to the 9V power supply and the transistor.
-The transistor was connected to the series of leds, to a digital pin, and to the ground of the power supply.
-</p>
+The transistor was connected to the series of leds, to a digital pin, and to the ground of the power supply. 
+<br> <br>
+This transistor can handle up to 47A of current. This series of LEDs has a voltage drop of 6V, and I wanted a current of 20mA to power
+ the LEDs. Since, 20mA is significantly lower than the max current of the transistor, this transistor is a safe choice for this circuit.
 
 </div>
 
@@ -61,7 +63,7 @@ each LED. The red LEDs have a drop of approximately 2 volts each (6 volts total)
 and I wanted a current of 20 mA. Then I used Ohm's Law (V = IR) to calculate the resistance
 needed. The result was a 150 ohm resistor. To ensure that my the current would be 20mA or lower, I rounded up to the closest
 resistor value in our kit which is a 220 ohm resistor.
-
+Additionally, I used a 220 ohm resistor for the IR
 </div>
 <hr style="border: none; height: 20px; background: none;">
 
@@ -92,21 +94,116 @@ stops power from flowing to the LEDs, keeping them off.
 
   <h3> 2: Draw a schematic for a circuit with using at least your arduino, a DC motor, a flyback diode, and capacitors between power
      and ground. Find parts with datasheets you could use for each of these schematic components. </h3>
+     <img src="A5_AQ_2.jpg" />
 
      <p> 
 
-     </p>
-
+      Here I used the DC motor from our kit with a max voltage drop of 6V. 
+      I used the 1N4007 diode from our kit as the flyback diode, which has a max VRRM of 1000V which is significantly higher 
+      than the voltage drop of the motor. This will allow it to effectively protect the circuit from voltage spikes. 
 
      <div class="image-text-wide">
 
-  <h3>33: Here is the datasheet for the L293D chip: https://www.ti.com/product/L293DLinks. Draw a schematic using at least your 
+  <h3>3: Here is the datasheet for the L293D chip: https://www.ti.com/product/L293DLinks. Draw a schematic using at least your 
     arduino, this chip, and two motors. Write (pseudo) code that shows how you would move the motors both forward, both back, then 
     one forward one back, and one back then forward.
 
   </h3>
+  <img src="A5_AQ_3.0.jpg" />
         
         <p> 
+          Here, I've attached two DC motors to the output pins of the L293D chip. The L293D chip is connected to the 5V and 
+          ground of the Arduino, and the control pins are connected to digital pins 3, 5, & 6 and 9, 10, & 11.A5
+                <div class="code">
+                  //intiatie all pins connected to the L293D <br>
+                  //In setup initatie all pins as outputs or inputs as needed <br>
+
+<br><br>
+                  //Setup functions to move motors <br>
+<br>
+                  //Move motor #1 forward {} <br>
+                  Motor #1 forward function (speed) <br>
+                  dW(5, HIGH) <br>
+                  dW(6, LOW) <br>
+                  aW(3, speed) <br>
+                  } <br>
+ <br>
+                  //move motor #1 back <br>
+                  Motor #1 backward function (speed) { <br>
+                  dW(5, LOW) <br>
+                  dW(6, HIGH) <br>
+                  aW(3, speed) <br>
+                  } <br>
+ <br>
+
+                  //Move motor #2 forward {} <br>
+                  Motor #2 forward function (speed) <br>
+                  dW(9, HIGH) <br>
+                  dW(10, LOW) <br>
+                  aW(11, speed) <br>
+                  } <br>
+ <br>
+                  //move motor #2 back <br>
+                  Motor #2 backward function (speed) { <br>
+                  dW(9, LOW) <br>
+                  dW(10, HIGH) <br>
+                  aW(11, speed) <br>
+                  }<br>
+
+                    <br>
+                  //stop both motors <br>
+                  stop motors function { <br>
+                  aW(3, 0) <br>
+                  aW(11, 0) <br>
+                  }<br>
+
+
+
+                  void loop { <br> 
+
+                    // move both forward <br> 
+                    motor #1 forward function (100) <br>
+                    motor #2 forward function (100) <br>
+                     delay(1000)   <br>
+                    <br>
+
+                    stop motors function <br>
+                    delay(1000)   <br>
+                      <br>
+                    //move both back <br>
+                    motor #1 backward function (100) <br>
+                    motor #2 backward function (100) <br>
+                    delay(1000)   <br>
+                    <br>
+                    stop motors function <br>
+                    delay(1000)   <br>
+
+                    <br>
+                    //move one forward one back <br>
+                    motor #1 forward function (100) <br>
+                    motor #2 backward function (100) <br>
+                    delay(1000)   <br>
+                    <br>
+                    stop motors function <br>
+                    delay(1000)   <br>
+                    <br>
+                    
+                    //move one back one forward <br>
+                    motor #1 backward function (100) <br>
+                    motor #2 forward function (100) <br>
+                    delay(1000)   <br>
+                      <br>
+                    stop motors function <br>
+                    delay(1000)   <br>
+                    <br>
+                  
+                  
+                  
+                  } <br>
+
+
+                  </div>
+
            </p>
 
   <h3> 4. AI Use </h3>  
