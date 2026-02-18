@@ -1,3 +1,7 @@
 [submodule "hcde439"]
 	path = hcde439
 	url = https://github.com/meredithwiniarski/hcde439.git
+
+[submodule "hcde439/hcde439"]
+	path = hcde439/hcde439
+	url = https://github.com/meredithwiniarski/hcde439.git
