@@ -1,139 +1,161 @@
+
 <!DOCTYPE html>
+
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+  <meta charset="utf-8" />
 
-    <title>Example Student's HCDE 439 Physical Computing Page!</title>
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<title>Example Student's HCDE 439 Physical Computing Page!</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
 
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <h1>A5: High(er) Voltage and Transistors</h1>
-    <div class="header">
-      <p>For this assignment we were tasked with buidling a circuit containing a sensor, a transistor, and an 
-        external power source.</p>
-    </div>
+</head>
+<body>
 
+<h1>A5: High(er) Voltage and Transistors</h1>
+  <div class="header">
+    <p>For this assignment we were tasked with creating a circuit that included a sensor, a high-load output device,
+    an external power source, and a transistor. I created a circuit that used an IR receiver to turn on and off 3 LEDs
+    in series, that uses 9v of external power. When the IR sensor reads that the power button was pressed, it activates
+    a transistor that controls the power to the LEDs.
+    </p>
+
+  </div>
+
+<div class="image-text">
+  <img src="A5_Circuit.jpg" />
+
+<p>
+
+  This is an image of my final circuit built on a breadboard and connected to the Arduino and to the 9V external power supply.
+  The 3 LEDs are in series with one resistor. They are connected, through the resistor, to the 9V power supply, and
+  the transistor is connected to the ground of the power supply. The transistor is also connected to pin 10 of the Arduino.
+  The IR receiver is connected to pin 7 of the Arduino, and the ground and 5V of the Arduino.
+</p>
+
+</div>
 
 <hr style="border: none; height: 20px; background: none;">
 
+<h2> Circuit Diagram </h2>
 
-    <div class="image-text"> 
-      <img src="A4_Circuit.jpg" />
-      <p> 
-        This is an image of my final circuit built on a breadboard, connected to the Arduino, and connected to 
-        an external power source. 
-        The red and white LEDs are in parallel branches, and each have their own resistor,
-        The white LED is conneced to pin 2. The red LED is connected to pin 3. The transistor is connnected to pin 9 
-        and the IR sensor is connected to pin 7.
-      </p>
+<div class="image-text">
+<img src="A5_Schematic.jpg" />
 
-    </div>
+<p> Here is the schematic diagram for my circuit.
+The IR receiver was its own branch connected to the Arduino.
+The 3 red LEDs were in series with a resistor, and that branch was connected to the 9V power supply and the transistor.
+The transistor was connected to the series of leds, to a digital pin, and to the ground of the power supply.
+</p>
 
-     <hr style="border: none; height: 20px; background: none;">
+</div>
 
+<hr style="border: none; height: 20px; background: none;">
+
+<h2> Choosing Resistors </h2>
+<div class="image-text">
+<img src="A5_Calculations.jpg" />
+<p>
+To choose the right resistors for each branch, I started by measuring the voltage drop through
+each LED. The red LEDs have a drop of approximately 2 volts each (6 volts total). The external source provided 9 volts
+and I wanted a current of 20 mA. Then I used Ohm's Law (V = IR) to calculate the resistance
+needed. The result was a 150 ohm resistor. To ensure that my the current would be 20mA or lower, I rounded up to the closest
+resistor value in our kit which is a 220 ohm resistor.
+
+</div>
+<hr style="border: none; height: 20px; background: none;">
+
+
+<h2> Final Circuit GIF </h2>
+<div class="image-text">
+<img src="A5_GIF.gif" />
+
+<p>Here is a GIF of the final circuit. When the power button on the remote is pressed, the IR sensor detects
+the signal and changes the system value from either on to off. If the system is on, the transistor is turned on,
+which allows power to flow to the LEDs, turning them on. If the system is off, the transistor is turned off, which
+stops power from flowing to the LEDs, keeping them off.
+</p>
+</div>
+
+<hr style="border: none; height: 20px; background: none;">
 
 <h2> Additional Questions </h2>
 <div class="image-text-wide">
 
-  <h3> 1: These are the datasheets for the n-mosfet transistor: DMT6009LCT, IRLZ44N, P30N06LE. Read the text on
-     your mosfet to see which one you have. For your mosfet, what is the absolute maximum amount of current between 
-     pins 2 and 3?</h3> <br>
-        
-    <p> 
-    Our transistor is the DMT6009LCT. Per the datasheet, the absolute maximum amount of current between 
-    pins 2 and 3 (Source and Drain) or the continuous drain current is 37.2 A.
+  <h3> 1: These are the datasheets for the n-mosfet transistor: DMT6009LCTL, IRLZ44NL, P30N06LE. Read the text on your mosfet to see
+     which one you have. For your mosfet, what is the absolute maximum amount of current between pins 2 and 3?</h3>
 
-    </p>
-         
-          
-</div>
+     <p> The mosfet I used is the IRLZ44NL. According to its datasheet, the absolute maximum current between pins 2 and 3 is 47A</p>
+  </div>
 
-<div class="image-text-wide">
+  <div class="image-text-wide">
 
-  <h3> 2: Draw a schematic for a circuit with using at least your arduino, a DC motor, a flyback diode, 
-    and capacitors between power and ground. Find parts with datasheets you could use for each of these 
-    schematic components.
+  <h3> 2: Draw a schematic for a circuit with using at least your arduino, a DC motor, a flyback diode, and capacitors between power
+     and ground. Find parts with datasheets you could use for each of these schematic components. </h3>
+
+     <p> 
+
+     </p>
 
 
+     <div class="image-text-wide">
+
+  <h3>33: Here is the datasheet for the L293D chip: https://www.ti.com/product/L293DLinks. Draw a schematic using at least your 
+    arduino, this chip, and two motors. Write (pseudo) code that shows how you would move the motors both forward, both back, then 
+    one forward one back, and one back then forward.
 
   </h3>
-        <p> 
-          
-          </p>
-          
-</div>
-
-<div class="image-text-wide">
-
-  <h3>3: Here is the datasheet for the L293D chip: https://www.ti.com/product/L293D. 
-    Draw a schematic using at least your arduino, this chip, and two motors. Write (pseudo) code that shows how 
-    you would move the motors both forward, both back, then one forward one back, and one back then forward.
-
- </h3>
         
         <p> 
-          
-        </p>
-          
-</div>
+           </p>
 
-<h3> 4. AI Use </h3>  
-        <p>
+  <h3> 4. AI Use </h3>  
+      <p>
            I did not use AI when completing this assignment.
 
         </p>
-<hr style="border: none; height: 20px; background: none;">    
- <h2> Arduino Code </h2>
 
 
+<hr style="border: none; height: 20px; background: none;">
+
+<h2> Arduino Code </h2>
 <div class="code">
 
-#include <IRremote.h> //include the IRremote library<br>
-const int RECV_PIN = 7; //initiate the IR receiver pin as 7<br>
-
+#include <IRremote.h> //include the IRremote library <br>
+const int RECV_PIN = 7; //initiate the IR receiver pin as 7 <br>
+const int transistor = 10; //initiate transistor to pin 10 <br>
 <br>
-int whiteLED = 2;  //initiate white LED to pin 2 <br>
-int redLED = 3;   //initiate red LED to pin 3 <br>
+<br>
 IRrecv irrecv(RECV_PIN); // initialize IR object for detecting IR signals <br>
-decode_results results; // holds IR data<br>
-
-bool systemOn = false; //intiate system on value as false<br>
+decode_results results; // holds IR data <br>
+bool systemOn = false; //intiate system on value as false <br>
+<br>
+void setup() {<br>
+Serial.begin(9600); //intiate serial<br>
+irrecv.enableIRIn(); //function detecting values <br>
+irrecv.blink13(true); //function for visually knowing when IR values when detected <br>
+pinMode(transistor, OUTPUT);  //  declare transistor led as an output <br>
+} <br>
+<br>
+void loop() { <br>
+if(irrecv.decode(&results)){ //checks if a signal has been received and decoded <br>
+if (results.value == 0xFFA25D) {   // If the received value is the power button <br>
+systemOn = !systemOn; //change the value of system on to the opposite of the current value <br>
 <br>
 
-void setup() {<br>
-  Serial.begin(9600); //intiate serial<br>
-  irrecv.enableIRIn(); //function detecting values<br>
-  irrecv.blink13(true); //function for visually knowing when IR values when detected<br>
-  pinMode(whiteLED, OUTPUT);   //  declare white led as an output<br>
-  pinMode(redLED, OUTPUT);     // declare red led as an output<br>
+if (systemOn) { //if the system is on <br>
+analogWrite(transistor, 255); //turn the  LED on high <br>
+Serial.println("SYSTEM ON"); //print System On <br>
+} else {  //if the system is not on, <br>
+analogWrite(transistor, 0); //turn LED off <br>
+Serial.println("SYSTEM OFF"); //print System Off <br>
 <br>
 }<br>
-
-void loop() {<br>
-  // put your main code here, to run repeatedly: <br>
-  if(irrecv.decode(&results)){ //decode the received value and store it in results<br>
-  if (results.value == 0xFFA25D) {   // If the received value is the power button <br>
-      systemOn = !systemOn; //change the value of system on to the opposite of the current value <br>
- <br>
-      if (systemOn) { //if the system is on <br>
-        digitalWrite(whiteLED, HIGH); //turn the white LED on high <br>
-        digitalWrite(redLED, LOW); //turn red LED on low <br>
-        Serial.println("SYSTEM ON"); //print System On<br>
- <br>
-      } else {  //if the system is not on, <br>
-        digitalWrite(whiteLED, LOW); //Turn the white LED off <br>
-        digitalWrite(redLED, HIGH); //turn red LED on high <br>
-        Serial.println("SYSTEM OFF"); //print System Off <br>
- <br>
-      }<br>
-    }<br>
+}<br>
 <br>
-    irrecv.resume(); //continue receiving values<br>
-  }<br>
-} <br>
-
+irrecv.resume(); //continue receiving values<br>
+}<br>
+}<br>
 </div>
-  </body>
+</body>
 </html>
