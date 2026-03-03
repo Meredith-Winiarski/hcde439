@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
+    <script src="https://unpkg.com/@gohai/p5.webserial@^1/libraries/p5.webserial.js"></script>
+    <title>LED Controller</title>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: black;
+        color: white;
+      }
+
+      #controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      input[type="range"] {
+        width: 200px;
+      }
+
+      button {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="controls">
+      <button id="connectBtn">Connect</button>
+      <p id="status">Not connected</p>
+
+      <h3>LED Brightness</h3>
+      <input type="range" id="sliderA" min="0" max="255" value="0" />
+      <span id="valueA">255</span>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
