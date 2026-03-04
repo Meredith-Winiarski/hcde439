@@ -13,6 +13,9 @@
   <div class="header">
     <p>For this assignment we were tasked with creating a webpage that interacts with and changes something 
       in the real world and vice versa, doing something in the real world changes something on our webpage. 
+
+      I create a circuit with two buttons and two LEDs. When a button is pressed the corresponding LED lights up. 
+      This changes the color of the "ink" in the drawing tool. On the webpage, there is a slider that changes the brightness of LEDs.
     </p>
 
 
@@ -24,8 +27,7 @@
 
 <p>
   This is an image of my final circuit built on a breadboard and connected to the Arduino which is connected
-  to my computer. I have two button connected to digital pins 2 and 3, and two LEDs connected to pwd pins 5 and 6. 
-  Each button and LED has their own resistor. 
+  to my computer. 
 </p>
 
 </div>
@@ -38,15 +40,8 @@
 <img src="A6_Schematic.jpg" />
 
 <p> Here is the schematic diagram for my circuit.
-There are two LEDs and two buttons, each in their own branch.
-<br> <br>
-  I used  a 10k ohm resistor to act as a pull-down resistor on the button branch, 
-        as recommended in class. The purpose of a pull-down resistor is to ensure that the 
-        input pin reads LOW when the button is not pressed. When the button is not pressed, 
-        Pin 2 might pick-up additional noise from the environment causing it 
-        to read a non-zero voltage. Adding a resistor that connects Pin 2 to Ground, 
-        ensures the pin will read zero. I used a 10k ohm  because it limits the amount of 
-        current flowing through the circuit while still effectively pulling the pin to ground.
+  I have two buttons connected to digital pins 2 and 3, and two LEDs connected to pwm pins 5 and 6. 
+  Each button and LED has their own resistor. 
 
 
 </div>
@@ -64,6 +59,14 @@ There are two LEDs and two buttons, each in their own branch.
         I knew the arduino provided 5 volts of power and I wanted a current of 20 mA.  Then I used Ohm's Law (V = IR) 
         to calculate the resistance needed. The result was a 100 or 150 ohm resistor for each branch.
         To ensure that my the current would be 20mA or lower, I rounded up, using a 220 ohm resistor for each LED branch.
+        <br> <br> 
+        I used  a 10k ohm resistor to act as a pull-down resistor on the button branch, 
+        as recommended in class. The purpose of a pull-down resistor is to ensure that the 
+        input pin reads LOW when the button is not pressed. When the button is not pressed, 
+        Pin 2 might pick-up additional noise from the environment causing it 
+        to read a non-zero voltage. Adding a resistor that connects Pin 2 to Ground, 
+        ensures the pin will read zero. I used a 10k ohm  because it limits the amount of 
+        current flowing through the circuit while still effectively pulling the pin to ground.
       
       </p>
 
@@ -79,7 +82,7 @@ There are two LEDs and two buttons, each in their own branch.
           <p>Here is a video of the final circuit: <a href="https://youtu.be/PXx7bpbwRRo"> Circuit Functionality</a>  <br>
            Due to the size of the video, I couldn't create a high quality GIF that
             VS code would accept that also showed all of the functionality. <br>
-            The lights turn on when the correspondinb button is pressed. If the light is turned on, the color of the
+            The lights turn on when the corresponding button is pressed. If the light is turned on, the color of the
             "ink" changes. The brightness slider changes the brightness of the the LEDs.
           </p>           
 
@@ -166,6 +169,10 @@ if (blueOn == true) { // if the blue led is on <br>
   </p>
 
 </div>
+
+<hr style="border: none; height: 20px; background: none;">
+  <h2>HTML Code</h2>
+  <p> HTML: <a href = "https://github.com/Meredith-Winiarski/hcde439/blob/main/p5-arduino/A6%20/index.html">Link to HTML Code on GitHub</a> </p>
 
 
 <hr style="border: none; height: 20px; background: none;">
