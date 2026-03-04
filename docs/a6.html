@@ -86,6 +86,100 @@ There are two LEDs and two buttons, each in their own branch.
     </div>
 
 
+    <hr style="border: none; height: 20px; background: none;">
+
+<h2> Arduino Code </h2>
+<div class="code">
+  <p>
+          int red = 5;   // PWM pin for red LED <br>
+      int blue = 6;  // PWM pin for blue LED <br>
+   <br>
+  int buttonPinA = 2; // set button A to pin 2 <br>
+int buttonPinB = 3; // set button B to pin 3 <br>
+ <br>
+int buttonStateA = 0; //set the state for button A to 0 <br>
+int lastButtonStateA = HIGH; //set the previous state for button A to high <br>
+ <br>
+int buttonStateB = 0; //set the state for button B to 0 <br>
+int lastButtonStateB = HIGH; //set the previous state for button B to high <br>
+ <br>
+int brightness = 0;  // set intial brightness to zero <br>
+ <br>
+bool redOn = false; // set red LED to off <br>
+bool blueOn = false;  // set blue LED to off <br>
+ <br>
+void setup() { <br>
+  pinMode(buttonPinA, INPUT); //set button A as an input <br>
+  pinMode(buttonPinB, INPUT); //set button B as an input <br>
+  pinMode(red, OUTPUT); //set red led as an output <br>
+  pinMode(blue, OUTPUT); //set blue led as an output <br>
+  analogWrite(red, 0); //set brightness of red LED to 0  <br>
+  analogWrite(blue, 0); //set brightness of blue LED to 0 <br>
+<br>
+  lastButtonStateA = digitalRead(buttonPinA); //read in button a state and the previous button state equal to it <br>
+  lastButtonStateB = digitalRead(buttonPinB); //read in button b state and the previous button state equal to it <br>
+<br>
+  Serial.begin(9600); //intiate serial <br>
+} <br>
+ <br>
+void loop() { <br>
+ <br>
+  if (Serial.available() > 0) { // if there is serial data <br>
+    String valStr = Serial.readStringUntil('\n'); //read it <br>
+    brightness = valStr.toInt();  <br>
+      if (Serial.available() > 0) { // if there is serial data <br>
+        String valStr = Serial.readStringUntil('\n'); //read it until you get a new line <br> 
+        brightness = valStr.toInt(); //convert the string value to an int  <br>
+      } <br>
+  } <br>
+<br>
+  buttonStateA = digitalRead(buttonPinA); //set button state for A to read value <br>
+  buttonStateB = digitalRead(buttonPinB); //set button state for B to read value <br>
+
+  if (buttonStateA == LOW && lastButtonStateA == HIGH) redOn = !redOn; // if the button state is low and previous state was high, change the boolean value to the opposite <br>
+  if (buttonStateB == LOW && lastButtonStateB == HIGH) blueOn = !blueOn;  // if the button state is low and previous state was high, change the boolean value to the opposite <br>
+ <br>
+  lastButtonStateA = buttonStateA; //set the last button state equal to the current state <br>
+  lastButtonStateB = buttonStateB; //set the last button state equal to the current state <br>
+ <br>
+  if (redOn == true) { //if the red LED is on <br>
+  analogWrite(red, brightness); //write the red LED to the brightness value <br>
+} else {  //if the LED is off <br>
+  analogWrite(red, 0); //write the LED to a brightness of 0 <br>
+}
+ <br>
+if (blueOn == true) { // if the blue led is on <br>
+  analogWrite(blue, brightness); // write the blue led to the brightness value <br>
+} else { // if the LED is off <br>
+  analogWrite(blue, 0);  //swrite the LED to a brightness of 0 <br>
+} <br>
+ <br>
+  
+  Serial.print(redOn ? 1 : 0); // send the state of led to java script <br>
+  Serial.print(","); // send the state of led to java script <br>
+  Serial.println(blueOn ? 1 : 0); // send the state of led to java script <br>
+ <br>
+  delay(50); //delay by 50 milliseconds <br>
+}
+
+
+  </p>
+
+</div>
+
+
+<hr style="border: none; height: 20px; background: none;">
+
+<h2> p5.js Code </h2>
+<div class="code">
+  <p>
+
+  
+  </p>
+
+</div>
+
+
 
   </body>
 </html>
