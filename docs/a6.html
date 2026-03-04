@@ -173,6 +173,110 @@ if (blueOn == true) { // if the blue led is on <br>
 <h2> p5.js Code </h2>
 <div class="code">
   <p>
+    let port; //declare serial connection betweem browser and arduino <br>
+let reader; //declare reader to read data from arduino <br>
+let writer; //declare writer to send data to arduino <br>
+let redState = 0; //declare state of red LED to be 0 <br>
+let blueState = 0; //declare state of blue LED to be 0 <br>
+let serialBuffer = ""; // buffer for incoming serial data <br>
+ <br>
+// p5.js setup <br>
+function setup() { //create setup function  <br>
+  createCanvas(windowWidth, windowHeight); //create a canvas that is the size of the screen/window <br>
+  background(255,255,255); //make the canvas background white <br>
+ <br>
+  // Connect button <br>
+  const connectBtn = document.getElementById("connectBtn"); // connects to HTML button <br>
+  const statusText = document.getElementById("status"); // connects to HTML status text <br>
+ <br>
+  connectBtn.addEventListener("click", async () => { //button creates a connection to serial port <br>
+    try { <br>
+      port = await navigator.serial.requestPort(); //opens connect to arduino pop-up <br>
+      await port.open({ baudRate: 9600 }); //sets baud rate to 9600 to match arduino <br>
+<br>
+      writer = port.writable.getWriter(); // for sending data <br>
+<br>
+      const decoder = new TextDecoderStream(); // tool to decode data <br>
+      port.readable.pipeTo(decoder.writable); //sends incoming data to decoder <br>
+      reader = decoder.readable.getReader(); //reads decoded data v
+<br>
+      statusText.textContent = "Connected!"; // update status text if arduino successfully connected <br>
+ <br>
+      await sendBrightness(0);  // send initial brightness value to arduino <br>
+      readSerial(); // start reading serial <br>
+    } catch (err) { //catches errors <br>
+      console.error("Failed to connect:", err); // prints error message to console <br>
+      statusText.textContent = "Failed to connect"; // update status text if arduino failed to connect <br>
+ <br>
+    } <br>
+  }); <br>
+
+  const slider = document.getElementById("sliderA"); // connects to HTML slider
+  const valueDisplay = document.getElementById("valueA"); // connects to HTML value display <br>
+ <br>
+  slider.addEventListener("input", async () => { // listens for slider input changes <br>
+    valueDisplay.textContent = slider.value; // shows current value in text <br>
+    await sendBrightness(Number(slider.value)); //sends brightness number to arduino <br>
+  }); <br>
+
+  frameRate(30); // limit draw updates <br>
+} <br>
+  <br>
+// Read serial data from Arduino <br>
+async function readSerial() { //receiving data from ardiuno <br>
+  while (true) { //setup constant data "listening" <br>
+    try {  <br>
+      const { value, done } = await reader.read(); // read in serial data and check that there is still data to read <br>
+      if (done) break; //if reading is done, break the loop <br>
+      if (!value) continue; //if there is still reading to be done, keep the loop open <br>
+
+      serialBuffer += value; // append incoming data to buffer <br>
+      const lines = serialBuffer.split("\n"); // split buffer at new line element <br>
+
+      for (let i = 0; i < lines.length - 1; i++) { // iterate through all complete lines <br>
+        const line = lines[i].trim().replace("\r", ""); // clean up line <br>
+        const parts = line.split(","); //split first data at the comma <br>
+        if (parts.length >= 2) { // check if there are at least two parts <br>
+          redState = Number(parts[0]); // set the first value to indicate the state of the red LED <br>
+          blueState = Number(parts[1]); //set the second value to indicate the state of the blue LED <br>
+        } <br>
+      } <br>
+
+      serialBuffer = lines[lines.length - 1]; //saves any unfinished data chunks <br>
+    } catch (err) { //catches errors <br>
+      console.error("Serial read error:", err); //print error to console <br>
+      break; //stop the loop <br>
+    } <br>
+  } <br>
+} <br>
+
+<br><br>
+async function sendBrightness(value) { //fucntion to send brightness toa rduino <br>
+  if (!port || !writer) return; //check that everything is connected <br>
+<br>
+  const msg = `${value}\n`; // create message string with newline <br>
+  await writer.write(new TextEncoder().encode(msg)); //convert string to bytes and send to arduino <br>
+} <br>
+
+// p5.js draw loop <br>
+function draw() { //draw function <br>
+ 
+  if (mouseIsPressed) { //if the mouse is pressed <br>
+ <br>
+    if (redState === 1 && blueState === 1) { //if both red and blue LEDs are on <br>
+      fill(150, 0, 150); //set fill color to purple <br>
+    } else if (redState === 1) { //if only red is on <br>
+      fill(255, 0, 0); //set ink color to red<br>
+    } else if (blueState === 1) { //if only red is on <br>
+      fill(0, 0, 255); //set ink color to blue <br>
+    } else { // if neither are on <br>
+      fill(255); //set the fill color to white <br>
+    } <br>
+ <br>
+    circle(mouseX, mouseY, 40); //drawing shape is a circle with a diameter of 40 <br>
+  } <br>
+ <br>
+} <br>
 
   
   </p>
