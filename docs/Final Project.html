@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Final </title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Final Project: Motion-Activated Miffy</h1>
+    <div class="container">
+      <img src="Final Miffy Cover.png"  style ="width:500px; height:auto;"/>
+      <div class="text">
+        <p> For my final assignment, I decided to create a motion-activated lamp shaped like Miffy, the cartoon bunny. <br>
+          <br>
+          For this project, I wanted to make something that I would continue to use outside of this class. I love 
+          having non-overhead lighting in my room, so I thought it would be fun to make a lamp. Additionally, I wanted to 
+          try out new parts and use an external power source. <br>
+          <br>
+          This led me to my final project, which is a motion-activated lamp that turns on and off when you wave your
+          hand in front of the sensor. 
+
+          </p>
+            <h2> Bill of Materials</h2>
+
+
+            <ul>
+              <li> Translucent PLA Filament </li>
+              <li> Black PLA Filament </li>
+              <li> Arduino Uno </li>
+              <li> HC-SR501 PIR Sensor </li>
+              <li>  6 Breadboard Jumper Wires </li>
+              <li> 3 Female to male Dupont Wires</li>
+              <li> 12V External power </li>
+              <li> Mosfet Transistor </li>
+              <li> LED Strip Lights </li>
+              <li> Two wire connectors </li>
+              <li> Blue LED (for testing) </li>
+              <li> 220 Ohm resistor (for testing) </li>
+            </ul>
+      </div>
+        
+
+ </div>
+
+
+  <hr style="border: none; height: 20px; background: none;">
+
+    <div class="image-text">
+  <img src="Final Circuit.png" style ="width:auto; height:300px;" />
+  <img src="Final PIR Sensor Circuit.png"  style ="width:auto; height:300px;"/>
+
+  <p>
+  This is an image of my final circuit inside of the housing. The circuit is built on a small breadboard, connected 
+  to the Arduino and to a 12V external power supply. The LEDs are wrapped around the pillar and the PIR Sensor sits on top.
+  The wires connected to the PIR Sensor run through the pillar since it is hollow. 
+  </p>
+
+  </div>
+
+
+  <hr style="border: none; height: 20px; background: none;">
+
+    <h2> Circuit Diagram </h2>
+
+    <div class="image-text">
+    <img src="Final Schematic.jpg" />
+
+
+    <p> Here is the schematic for my circuit. It includes the PIR sensor which is connected to 5V, ground, and to pin 2. 
+      The LED strip is connected to Vin, a mosfet transistor, and to ground. The mosfet transistor connects to pin 5. 
+      If the system is on, the transistor is turned on, which allows power to flow to the LED strip, turning it on. 
+      If the system is off, the transistor is turned off, which stops power from flowing to the LED strip, keeping it off.
+      
+      </p>
+
+    </div>
+
+    <div class="image-text">
+    <img src="Final Schematic 2.jpg" style ="width:500px; height:auto;"/>
+
+
+    <p> Here is another schematic that shows how the circuit connects to the arduino and that the arduino is connected to 
+      an external power source through the barrel jack. 
+      
+      </p>
+
+    </div>
+
+ 
+    <hr style="border: none; height: 20px; background: none;">
+
+
+     <h2> Process </h2>
+
+     <h3>1. 3D Printing & Modeling</h3>
+
+     <p> 
+      I started this project by 3D modeling. From previous experience, I knew that 3D printing, modeling, and printing 
+      can be very troublesome and time-consuming. I knew that the Miffy body would be the most difficult thing to model,
+       so I found an existing piggy bank STL to use instead, since it was hollow and about the size I wanted. I used the
+        dimensions of the Miffy model to build the base and column. Additionally, I ensured that the base would fit the 
+        Arduino inside. Thankfully, all of my initial prints were successful, but they took 17 hours total, which confirmed 
+        my suspicion that I needed to start early. 
+     </p>
+
+    <hr style="border: none; height: 20px; background: none;">    
+
+    <div class="container">
+    <img src="Final_Simple_Circuit.jpg" />
+    <div class="text";>
+    <h3> 2. Initial Code and Circuit </h3>  
+    <p>
+      Before I started working in the “danger zone,” I created a simple circuit that used the PIR sensor, a single LED, 
+      and a 220 ohm resistor. This allowed me to learn how to use the PIR sensor in a low-risk environment. It helped me
+       understand what the sensor detects as motion and how I should write the code so that waving your hand once would
+       turn the light on, and waving a second time would turn the LED off. 
+
+      </p>
+      
+  </div>
+
+    </div>
+<p>
+  The code is relatively simple because the values from the PIR sensor either 
+      detect “motion” (infrared) or don’t, meaning there were only two potential inputs I had to account for. As for the 
+      code, I set the state of the LED to be a boolean value that was changed to its opposite every time motion was detected. 
+      Then, using if statements, I assigned the boolean value to turn the LED on or off, depending on whether the state was 
+      true or false.  <br> <br>
+    I tested the code using Serial output and was relatively confident in the output. However, I still needed to change 
+      the settings on the PIR sensor. This presented a significant challenge because I had to find just the right settings 
+      for the potentiometers. They change how often the sensor tries to sense motion and the distance at which it will sense
+      motion. 
+      <br> <br>
+      I found that it helped to decrease the sensor’s “field of view” by putting it inside of Miffy, such that the sensor 
+      faced the coin slot, the sensor would only detect motion through that slot and not other motion in the room. They 
+      made it easier to test the settings. 
+    </p>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+    <h3> 3. The Danger Zone </h3>
+    <p>
+      Once I was confident that my code worked for the simple circuit, it was time to enter the danger zone. This involved 
+      creating a more complex circuit to account for the LED strip and 12V external input. I had my table group and the
+      teaching team check over my circuit to ensure it worked. While the connections seemed to be correct and the LEDs 
+      were lighting up, they were not following the code. I worked 1:1 with Paula in office hours to troubleshoot by using
+      serial output, changing the code, and swapping out physical parts of the circuit until we eventually determined that 
+      the problem was my Arduino. It appeared that at some point, I had short-circuited my Arduino so that it was no longer
+      functioning properly. However, Paula was kind enough to give me another one, and once we ensured that everything was 
+      connected properly, we tested it and found that the new Arduino worked. 
+    </p>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+    <h3> 4. Putting it All Together </h3>
+    <p>
+    Now that the circuit was working properly, it was time to start putting all of the pieces together. I originally 
+    attempted to solder my circuit using the prototype expansion module, but I was not confident in my soldering abilities. 
+    I eventually decided to pivot from soldering my final project because I was struggling to make solid connections and 
+    was worried about damaging another part of my circuit. Additionally, my final project did not require soldering since 
+    the entirety of the circuit would be contained within the housing, and the lamp would be largely stationary. Instead, 
+    I used the two-way wire connectors to connect the LED strip to the breadboard. <br>
+    <br>
+    For my final step, I put all of the 3D printing housing together, placing the circuit inside as shown in the concept 
+    sketch. During this stage, I also printed a second Miffy with a higher infill (15% → 70%) to help decrease the 
+    brightness of the lamp. While most pieces fit snuggly together, I did add superglue in some places to strengthen 
+    the connection, such as between Miffy and the top of the base. 
+</p>
+
+    <hr style="border: none; height: 20px; background: none;">
+
+
+
+<h2> Arduino Code </h2> 
+<div class="code">
+
+  <p>
+
+    int pirPin = 2; //intiate pin for pir sensor <br>
+    int ledPin = 5; //intiate pin for LED strip <br>
+ <br>
+    bool ledState = false; //intiate LED state <br>
+
+void setup() { <br>
+  pinMode(pirPin, INPUT); //initiate PIR sensor as an input <br>
+  pinMode(ledPin, OUTPUT); //intiate LED as an output <br>
+  Serial.begin(9600); //intiate serial <br>
+}<br>
+<br>
+void loop() {<br>
+<br>
+ if (digitalRead(pirPin) == HIGH) { //if the pirPin detects motion (high) <br>
+ <br>
+  delay(100); // wait 100 milliseconds <br>
+<br>
+ if (digitalRead(pirPin) == HIGH) { // if motion is still HIGH  <br>
+<br>
+        ledState = !ledState; //swap the LED state <br>
+ <br>
+    if (ledState == true){ if the ledState is true <br>
+      Serial.println("LED ON"); // print LED ON <br>
+       digitalWrite(ledPin, HIGH); //turn the LED on high <br>
+    }  <br>
+      else if (ledState == false){ //if the ledState is False <br>
+         Serial.println("LED OFF"); //print LED OFF <br>
+         digitalWrite(ledPin, LOW); //turn the LED OFF <br>
+      } <br>
+<br>
+    while (digitalRead(pirPin) == HIGH) { //while the pin is sensing motion <br>
+           delay(50);  //delay by 50 seconds <br>
+         } <br>
+<br>
+       delay(500); // small break period to prevent immediate retrigger <br>
+     }<br>
+    }<br>
+ } 
+
+</p>
+</div>
+
+
+  </body>
+</html>

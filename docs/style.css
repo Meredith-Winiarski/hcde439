@@ -151,3 +151,27 @@ p {
   max-width: 400px;
   height: auto;
 }
+
+.container {
+  display: flex;
+  align-items: flex-start; /* aligns top edges */
+  gap: 20px; /* space between image and text */
+    margin-bottom: 20px;
+    
+
+  
+}
+
+.container img {
+  width: 250px; /* adjust as needed */
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 10px;
+}
+
+.text {
+  max-width: 500px;
+}
+
